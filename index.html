@@ -712,73 +712,60 @@
                             <div class="tab-pane fade" id="v-pills-visualizer" role="tabpanel"
                                 aria-labelledby="v-pills-visualizer-tab">
                                 <div class="work-panel">
-                                    <div class="work-fullwidth">
-                                        <p>
-                                            Oh, the elusive electronics project. I'm including this because I am
-                                            genuinely still working on it when I have the time, and also because I find
-                                            it super cool and want to get it done. My plan is to build a simple PCB that
-                                            can take in an audio signal (either by microphone or by direct input),
-                                            analyze it, and convert it directly to various visualizations on a strip of
-                                            WS2815 LEDs. This is most certainly something that has been done before, but
-                                            I still think it would be fun to have it be my own system. It's also nice to
-                                            have so many other implementations of this idea to refer to.
-                                        </p>
-                                        <p>
-                                            Last summer I drafted the schematic and layout for this in Eagle based on my
-                                            experience at Draper and some projects I found online. The idea was to
-                                            amplify and bias the audio signal so it could be read by the ADC onboard a
-                                            Teensy 3.0 over its full input voltage range. I believe the circuit I have
-                                            to do this works for that purpose, although I have discovered a few quirks
-                                            in the circuit while simming it in LTSpice. My next step is to iron out any
-                                            issues in this circuit and then to transfer this design to KiCAD, which I
-                                            believe to be a superior design tool to Eagle.
-                                        </p>
+                                    <div style="order:1">
+                                        <img class="work-image" src="images/flashy.gif" alt="Image unavailable..."
+                                            width=100%>
                                     </div>
-                                    <div>
+                                    <div style="order:0">
+                                        <p>I will be the first to admit, this project has given me some trouble. The
+                                            idea here is to build a circuit to both process an audio signal and control
+                                            a set of programmable RGB LEDs (WS2815). My initial implementation employed
+                                            the strategy of using a single-supply op-amp to DC-bias the input audio
+                                            signal so that it could be received directly at the ADC of a Teensy
+                                            microcontroller. The pdfs of the schematic and layout (made in Eagle) for
+                                            this design can be seen below.</p>
+                                        <p>The digital circuitry involved here (basically just a microcontroller and a
+                                            level translator) worked like a dream, as you can see in this gif. However
+                                            the analog circuit was a different story.</p>
+                                    </div>
+                                    <div style="order:2">
                                         <iframe style="width: 1px; min-width: 100%" src="media/visualizer_schem_v3.pdf"
                                             width="100%" height="600px"></iframe>
                                     </div>
-                                    <div>
+                                    <div style="order:3">
                                         <iframe style="width: 1px; min-width: 100%" src="media/visualizer_layout_v3.pdf"
                                             width="100%" height="600px"></iframe>
                                     </div>
-                                    <div>
+                                    <div style="order:4">
                                         <p>
-                                            I decided that prior to ordering the board I would try and implement the
-                                            circuit on a protoboard. This, I learned, was just the wrong decision. Doing
-                                            so was harder, more prone to error, and more expensive than just ordering
-                                            the board outright. I had fortunate success with the digital circuitry,
-                                            which you can see the results of in the following image. Trying to implement
-                                            the analog circuit for the audio input, however, resulted in some error that
-                                            made my op-amp go finger-burning hot and fried my entire Teensy
-                                            microcontroller. I'm not sure if this error was caused by a short due to the
-                                            complex circuit I was trying to solder onto a protoboard, or whether it was
-                                            intrinsic to the circuit I designed. Nonetheless, at the time I figured I
-                                            did not know enough about electronics to ensure I wouldn't fry another $20
-                                            microcontroller, and decided to wait until after my next co-op.
+                                            In the next picture you can see my initial implementation of this on a
+                                            soldered protoboard, which ended up being a mistake. Since my desire to do
+                                            this resulted in me having to limit myself to thru-hole components, and a
+                                            random solder bridge led to me shorting and frying my Teensy, this ended up
+                                            being much more expensive than just ordering the PCB. After taking a break
+                                            from this project and coming back, I realized that I've probably been going
+                                            about it the wrong way.
+                                        </p>
+                                        <p>
+                                            Inducing a DC bias on the audio signal makes the complexity of this circuit
+                                            much more difficult to implement. Also, after simming the circuit in LTSpice
+                                            I found that it introduced some delay to amplitude changes in the output.
+                                            This is not ideal for a circuit that needs to respond to changes in an audio
+                                            signal as fast as possible.
                                         </p>
                                     </div>
-                                    <div>
-                                        <img class="work-image" src="images/blinky.png" alt="Image unavailable..."
-                                            width=100%>
-                                    </div>
-                                    <div style="align-self: center">
-                                        <p>
-                                            Here's the abomination protoboard set-up in all of its glory.
-                                        </p>
-                                    </div>
-                                    <div>
+                                    <div style="order:5">
                                         <img class="work-image" src="images/abomination.jpg" alt="Image unavailable..."
                                             width=100%>
                                     </div>
-                                    <div style="align-self: center;">
-                                        <p>
-                                            And here's the best progress I've made so far!
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <img class="work-image" src="images/flashy.gif" alt="Image unavailable..."
-                                            width=100%>
+                                    <div style="order:6" class="work-fullwidth">
+                                        <p>Going forward I am going to address these problems in the circuit either by
+                                            re-implementing the DC biasing circuit or by scrapping it and using an
+                                            external high-speed ADC that can detect positive and negative voltages. All
+                                            I would need then is a standard input buffer and standard audio ADC. I am
+                                            also going to move this design over to KiCAD, as I believe it has become a
+                                            superior design tool to Eagle in a lot of ways, and I can't currently afford
+                                            to buy Altium.</p>
                                     </div>
                                 </div>
                             </div>
