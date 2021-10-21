@@ -102,6 +102,9 @@ body{
     fill: #aaa
 }
 
+#main-header a{
+    color: #f4f4f4;
+}
 
 #icons{
     float: right;
